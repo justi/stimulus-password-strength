@@ -1,48 +1,50 @@
 # stimulus-password-strength
 
-Importmap-friendly password strength field for Rails 8+ with Stimulus, zxcvbn and Tailwind.
+Importmap-friendly password strength field for Rails 8+ with Stimulus, `zxcvbn`, and Tailwind-friendly markup.
 
-## Cel produktu
+## Product Goal
 
-Zmniejszyć porzucenia na rejestracji przez lepszy UX hasła:
-- jedno pole hasła + `show/hide`
+Reduce signup abandonment by improving password UX:
+
+- one password field with `show/hide`
 - real-time strength meter
-- requirements widoczne nad inputem, żeby nie były zasłaniane przez 1Password/LastPass
-- brak zależności od Node.js
-- możliwie najprostsza rejestracja przy zachowaniu standardów bezpieczeństwa i UX best practices
+- requirements placed above the input so they stay visible with 1Password/LastPass overlays
+- no Node.js required in the host app
+- simpler signup flow while keeping security standards and sound UX practices
 
-## Co zawiera gem
+## What the Gem Includes
 
-- Rails Engine (`StimulusPasswordStrength::Engine`)
+- Rails engine: `StimulusPasswordStrength::Engine`
 - Stimulus controller: `password-strength`
 - vendored `zxcvbn.js`
-- helper `password_strength_field`
-- partial `_field.html.erb`
-- installer `rails g stimulus_password_strength:install`
-- domyślne i18n (`en`, `pl`)
+- helper: `password_strength_field`
+- partial: `_field.html.erb`
+- installer: `rails g stimulus_password_strength:install`
+- default i18n files: `en`, `pl`
 
-## Instalacja
+## Installation
 
-Dodaj do `Gemfile` aplikacji:
+Add the gem to your app:
 
 ```ruby
 gem "stimulus-password-strength"
 ```
 
-Następnie:
+Then run:
 
 ```bash
 bundle install
 bin/rails generate stimulus_password_strength:install
 ```
 
-Installer:
-- dodaje piny do `config/importmap.rb`
-- rejestruje controller w `app/javascript/controllers/index.js`
-- tworzy initializer `config/initializers/stimulus_password_strength.rb`
-- tworzy `app/lib/password_policy.rb` jako jedno źródło prawdy dla reguł pokazywanych w UI
+The installer:
 
-## Użycie
+- adds importmap pins to `config/importmap.rb`
+- registers the controller in `app/javascript/controllers/index.js`
+- creates `config/initializers/stimulus_password_strength.rb`
+- creates `app/lib/password_policy.rb` as the single source of truth for the rules shown in the UI
+
+## Usage
 
 ```erb
 <%= form_with(model: @user) do |form| %>
@@ -52,26 +54,29 @@ Installer:
 <% end %>
 ```
 
-Z custom labelami:
+With custom labels:
 
 ```erb
 <%= password_strength_field form, :password,
-    strength_labels: { weak: "Słabe", fair: "Przeciętne", good: "Dobre", strong: "Silne" },
-    toggle_labels: { show: "Pokaż", hide: "Ukryj" } %>
+    strength_labels: { weak: "Weak", fair: "Fair", good: "Good", strong: "Strong" },
+    toggle_labels: { show: "Show", hide: "Hide" } %>
 ```
 
 ## Password Policy
 
-Installer dodaje przykładowy plik [app/lib/password_policy.rb](/Users/justi/projects_prod/stimulus-password-strength/lib/generators/stimulus_password_strength/install/templates/password_policy.rb.tt), który powinien być wspólnym źródłem prawdy dla:
-- walidacji modelu
-- wymagań pokazywanych przez gem
+The installer creates a sample [password_policy.rb.tt](/Users/justi/projects_prod/stimulus-password-strength/lib/generators/stimulus_password_strength/install/templates/password_policy.rb.tt) file that should become the shared source of truth for:
 
-Przykład użycia w host-app:
+- backend model validation
+- requirements rendered by the gem
+
+Example host app validation:
 
 ```ruby
 # app/models/user.rb
 validates :password, length: { minimum: PasswordPolicy::MIN_LENGTH }, allow_nil: true
 ```
+
+Example view usage:
 
 ```erb
 <%= password_strength_field form, :password,
@@ -93,9 +98,9 @@ REQUIREMENTS = [
 ].freeze
 ```
 
-Gem nie próbuje inferować reguł z modelu i nie dodaje fallbacków dla `requirements`. To host-app jawnie przekazuje politykę z `PasswordPolicy`.
+The gem does not try to infer rules from the model and does not add hidden fallbacks for `requirements`. The host app must pass policy explicitly from `PasswordPolicy`.
 
-## Konfiguracja
+## Configuration
 
 `config/initializers/stimulus_password_strength.rb`:
 
@@ -118,106 +123,110 @@ StimulusPasswordStrength.configure do |config|
 end
 ```
 
-Rozszerzanie na nowe języki opiera się na Rails I18n: dodaj kolejny plik locale w katalogu [config/locales](/Users/justi/projects_prod/stimulus-password-strength/config/locales).
+Adding more languages is standard Rails I18n: add another locale file in [config/locales](/Users/justi/projects_prod/stimulus-password-strength/config/locales).
 
-## Co testować po integracji (checklista)
+## Post-Install Checklist
 
-1. Rejestracja: słabe hasło -> walidacja backendu nadal działa.
-2. Rejestracja: `requirements` pokrywają się z `PasswordPolicy` i z walidacją modelu.
-3. Rejestracja: toggle `Show/Hide` działa na mobile i desktop.
-4. Reset hasła: meter, requirements i toggle działają identycznie jak przy signup.
-5. Autofill hasła: strength meter i requirements odświeżają się poprawnie.
-6. Brak JS/zxcvbn error: formularz nadal pozwala wysłać hasło.
-7. i18n: labelki (`show/hide/weak/fair/good/strong`) są poprawne dla locale.
+1. Signup: weak password -> backend validation still works.
+2. Signup: `requirements` match `PasswordPolicy` and model validation.
+3. Signup: `Show/Hide` toggle works on mobile and desktop.
+4. Password reset: meter, requirements, and toggle behave the same way as signup.
+5. Password autofill: the strength meter and requirements refresh correctly.
+6. JS or `zxcvbn` failure: the form still allows submission.
+7. i18n: `show/hide/weak/fair/good/strong` labels are correct for the current locale.
 
-## Best Practices Dla Agenta Instalującego Gem
+## Best Practices for the Installing Agent
 
-Traktuj ten gem jako warstwę UI, nie jako politykę bezpieczeństwa haseł.
+Treat this gem as a UI layer, not as password security policy.
 
-### Cel instalacji
+### Installation Goal
 
-Masz poprawić UX pola hasła i zmniejszyć tarcie przy rejestracji:
-- meter ma być widoczny bez kolizji z password managerami
-- toggle ma być intuicyjny i dostępny
-- host-app ma zachować własne walidacje backendowe, dopóki ktoś świadomie ich nie zmieni
+Improve password UX and reduce signup friction:
 
-### Procedura wdrożenia
+- the meter must remain visible even with password manager overlays
+- the toggle must be obvious and accessible
+- the host app should keep its own backend validation until it is intentionally migrated
 
-1. Dodaj gem do `Gemfile` i uruchom:
+### Rollout Procedure
+
+1. Add the gem to `Gemfile` and run:
 
 ```bash
 bundle install
 bin/rails generate stimulus_password_strength:install
 ```
 
-2. Użyj wygenerowanego `PasswordPolicy` jako źródła prawdy dla reguł backendu i UI.
-3. Podmień tylko główne pole hasła na `password_strength_field`, przekazując `requirements: PasswordPolicy.requirements`.
-4. Zaktualizuj wszystkie user-facing widoki z polem hasła. Minimum:
-   - `signup / registration`
-   - `password reset / change password`
-5. Jeśli projekt ma dodatkowe flow ustawiania hasła, zaktualizuj również je:
+2. Use the generated `PasswordPolicy` as the shared source of truth for backend rules and UI rules.
+3. Replace the main password field with `password_strength_field`, passing `requirements: PasswordPolicy.requirements`.
+4. Update every user-facing password view. Minimum:
+   - signup / registration
+   - password reset / change password
+5. If the app has additional password-setting flows, update them too:
    - invitation acceptance
    - onboarding set password
    - admin-created account activation
    - forced password change
-6. Nie usuwaj `password_confirmation`, jeśli host-app nadal go wymaga.
-7. Nie zmieniaj backendowych walidacji hasła przy pierwszym rolloutcie, jeśli nie przepiąłeś ich na `PasswordPolicy`.
-8. Najpierw zrób rollout UI-only, dopiero potem rozważ zmianę polityki haseł.
+6. Do not remove `password_confirmation` if the host app still requires it.
+7. Do not change backend password validation during the first rollout unless it is already wired to `PasswordPolicy`.
+8. Roll out the UI first, then decide separately whether to simplify the backend policy.
 
-### Czego agent musi dopilnować w host-app
+### What the Agent Must Verify in the Host App
 
-1. Sprawdź model użytkownika i kontrolery auth:
-   - czy aplikacja wymaga `password_confirmation`
-   - czy aplikacja wymaga regexów typu uppercase/lowercase/digit
-   - czy istnieją niestandardowe komunikaty błędów
-2. Przepnij minimalnie jedną regułę z modelu do `PasswordPolicy`, zanim pokażesz `requirements` userowi.
-3. Usuń lub zaktualizuj copy, które obiecuje zasady inne niż faktycznie egzekwuje backend.
-4. Jeśli używasz custom label row nad inputem, zostaw stałą szerokość tekstu statusu albo prawy alignment, żeby layout nie "pływał".
-5. Jeśli host-app ma własny design system, przekazuj własne klasy do helpera zamiast forka gema.
+1. Review the user model and auth controllers:
+   - does the app require `password_confirmation`
+   - does the app require regex rules such as uppercase/lowercase/digit
+   - are there custom validation messages
+2. Move at least one backend rule into `PasswordPolicy` before exposing `requirements` in the UI.
+3. Remove or update copy that promises rules different from what the backend actually enforces.
+4. If you use a custom header row above the input, keep a stable status width or right alignment so the layout does not jump.
+5. If the host app has its own design system, pass custom classes into the helper instead of forking the gem.
 
-### Czego agent nie powinien robić automatycznie
+### What the Agent Should Not Change Automatically
 
-1. Nie usuwaj `password_confirmation`, jeśli nie przejrzałeś walidacji, testów i flow resetu hasła.
-2. Nie zmieniaj polityki haseł tylko dlatego, że meter pokazuje `good` lub `strong`.
-3. Nie definiuj `requirements` niezależnie od `PasswordPolicy`, bo rozjedziesz UI z backendem.
-4. Nie hardcoduj hintów typu `Must contain uppercase...`, jeśli to nie zgadza się z backendem.
-5. Nie zakładaj, że Tailwindowe klasy dynamicznie ustawiane z JS będą działały w każdej host-app.
+1. Do not remove `password_confirmation` without reviewing validations, tests, and the reset flow.
+2. Do not change the password policy just because the meter says `good` or `strong`.
+3. Do not define `requirements` separately from `PasswordPolicy`, or the UI will drift from backend validation.
+4. Do not hardcode hints such as `Must contain uppercase...` unless the backend actually enforces that rule.
+5. Do not assume dynamically applied Tailwind classes from JS will work in every host app.
 
-### Minimalny smoke test po instalacji
+### Minimal Smoke Test After Installation
 
-1. Signup: wpisz słabe hasło, sprawdź meter, toggle i komunikat backendu.
-2. Signup z włączonym 1Password/LastPass: upewnij się, że meter nie jest zasłonięty.
-3. Reset hasła: sprawdź ten sam komponent w drugim flow.
-4. Autofill przeglądarki: upewnij się, że po wpisaniu lub autofillu meter się aktualizuje.
-5. Mobile viewport: toggle nie może nachodzić na tekst ani na ikonki managera haseł.
+1. Signup: enter a weak password and check the meter, toggle, and backend error.
+2. Signup with 1Password/LastPass enabled: confirm the meter is still visible.
+3. Password reset: verify the same component in the second flow.
+4. Browser autofill: confirm the meter updates after typing or autofill.
+5. Mobile viewport: the toggle must not overlap the text or password manager icons.
 
-### Kiedy dopiero zmieniać politykę haseł
+### When to Change Password Policy
 
-Zmieniaj backend dopiero po osobnej decyzji produktowej. Ten gem nie zastępuje:
-- walidacji modelu
+Change backend policy only as a separate product decision. This gem does not replace:
+
+- model validation
 - rate limiting
-- anty-abuse
-- kontroli resetu hasła
+- anti-abuse controls
+- password reset security
 
-## linked_flow: zakres adaptacji
+## Example Adaptation: `linked_flow`
 
-Dla `../linked_flow` gem został już użyty jako przykład pełnego uproszczenia UX:
-- signup i reset hasła działają bez `password_confirmation`
-- UI używa `password_strength_field`
-- backend i UI używają wspólnego `PasswordPolicy` z minimalną długością hasła
+The gem was also used in `../linked_flow` as an example of a more opinionated UX simplification:
 
-Dlatego rekomendowany rollout:
-1. Podpiąć gem tylko jako UI (bez zmiany backend policy).
-2. Przepiąć widoki signup/reset na `password_strength_field`.
-3. Dopiero potem ewentualnie upraszczać backend i testy biznesowe.
+- signup and password reset work without `password_confirmation`
+- the UI uses `password_strength_field`
+- backend validation and UI both use a shared `PasswordPolicy` with minimum password length
 
-## Co jeszcze warto dorobić po `0.1.0`
+Recommended rollout order:
 
-1. Generator do scaffoldu testów JS w aplikacji hosta.
-2. CI matrix rozszerzony o Rails `8.0` i `8.1`.
-3. Opcja `confirmation: true/false` w helperze.
-4. Publiczna dokumentacja eventów analitycznych (retention funnel).
-5. Szersze przykłady integracji z design systemami host-app.
+1. Add the gem as UI-only.
+2. Switch signup and reset views to `password_strength_field`.
+3. Only then decide whether to simplify backend policy and business tests.
+
+## Nice Follow-Ups After `0.1.0`
+
+1. Generator for JS test scaffolding in the host app.
+2. Wider CI coverage for Rails `8.0` and `8.1`.
+3. `confirmation: true/false` helper option.
+4. Public analytics event documentation for signup funnel instrumentation.
+5. More examples for integrating with host app design systems.
 
 ## Development
 
@@ -229,7 +238,7 @@ bundle exec rake test
 npm test
 ```
 
-## Release hygiene
+## Release Hygiene
 
-- pełny checklist publikacyjny: [PUBLISH_CHECKLIST.md](PUBLISH_CHECKLIST.md)
-- historia zmian: [CHANGELOG.md](CHANGELOG.md)
+- full publication checklist: [PUBLISH_CHECKLIST.md](PUBLISH_CHECKLIST.md)
+- change history: [CHANGELOG.md](CHANGELOG.md)
