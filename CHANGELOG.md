@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.1
+
+- first public RubyGems release
+- English README for public consumers
+- agent-specific installation guidance moved to `AGENTS.md` and `CLAUDE.md`
+- CI reduced to the minimum useful cross-platform matrix: Ruby 3.2 on Linux and macOS
+- lockfile updated for Linux and generic Ruby platforms
+
 ## 0.1.0
 
 - first public release candidate
