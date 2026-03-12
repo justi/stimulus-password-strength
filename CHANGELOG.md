@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.2
+
+- switched gem packaging to `git ls-files`
+- added a lightweight RuboCop setup for the gem repository
+- simplified CI to a single `main.yml` workflow with Ruby lint, Ruby tests, and JS tests
+- aligned repository tooling with the release workflow used in `price_scanner`
+
 ## 0.1.1
 
 - first public RubyGems release
