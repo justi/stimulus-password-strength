@@ -135,6 +135,42 @@ Adding more languages is standard Rails I18n: add another locale file in [config
 6. JS or `zxcvbn` failure: the form still allows submission.
 7. i18n: `show/hide/weak/fair/good/strong` labels are correct for the current locale.
 
+## Migrating from Custom Password UI
+
+If the host app already has its own password strength UI, this is a migration, not a fresh install.
+
+Typical signs:
+
+- a custom Stimulus controller such as `password_field_controller.js`
+- manual strength bar markup in signup or reset views
+- a custom `zxcvbn` pin in `config/importmap.rb`
+- tests tied to old DOM details such as `data-testid="password-input"`
+
+Recommended migration order:
+
+1. Add the gem and run the installer.
+2. Move the real password rule into `PasswordPolicy`.
+3. Replace the custom password markup with `password_strength_field` in:
+   - signup / registration
+   - password reset / change password
+4. Remove the old password-specific Stimulus controller and its registration from `app/javascript/controllers/index.js`.
+5. Remove duplicate importmap pins if the app already pinned `zxcvbn` or a custom password controller setup.
+6. Update tests to target user-facing behavior, not the old internal DOM structure.
+
+For example, prefer:
+
+```ruby
+fill_in "Password", with: "SecurePass123!"
+```
+
+instead of a selector tied to the old implementation:
+
+```ruby
+find("[data-testid='password-input']").fill_in with: "SecurePass123!"
+```
+
+After migration, there should be only one password UI implementation in the app: the gem-based one.
+
 ## Agent Guidance
 
 If you are installing this gem through an AI coding agent, use:
