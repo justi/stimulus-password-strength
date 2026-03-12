@@ -15,15 +15,18 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = ">= 3.2.0"
 
   spec.metadata["homepage_uri"] = spec.homepage
-  spec.metadata["source_code_uri"] = "https://github.com/justi/stimulus-password-strength/tree/main"
-  spec.metadata["changelog_uri"] = "https://github.com/justi/stimulus-password-strength/releases"
+  spec.metadata["source_code_uri"] = "#{spec.homepage}/tree/main"
+  spec.metadata["changelog_uri"] = "#{spec.homepage}/blob/main/CHANGELOG.md"
   spec.metadata["rubygems_mfa_required"] = "true"
 
-  spec.files = Dir.chdir(__dir__) do
-    Dir.glob("{app,config,lib,vendor}/**/*", File::FNM_DOTMATCH).reject do |file|
-      File.directory?(file)
-    end + %w[LICENSE.txt README.md CHANGELOG.md]
+  gemspec = File.basename(__FILE__)
+  spec.files = IO.popen(%w[git ls-files -z], chdir: __dir__, err: IO::NULL) do |ls|
+    ls.readlines("\x0", chomp: true).reject do |file|
+      (file == gemspec) ||
+        file.start_with?(*%w[bin/ test/ spec/ features/ .git .github appveyor Gemfile package-lock.json package.json node_modules/])
+    end
   end
+
   spec.require_paths = ["lib"]
   spec.add_dependency "rails", ">= 8.0", "< 9.0"
 end
