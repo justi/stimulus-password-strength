@@ -135,76 +135,14 @@ Adding more languages is standard Rails I18n: add another locale file in [config
 6. JS or `zxcvbn` failure: the form still allows submission.
 7. i18n: `show/hide/weak/fair/good/strong` labels are correct for the current locale.
 
-## Best Practices for the Installing Agent
+## Agent Guidance
 
-Treat this gem as a UI layer, not as password security policy.
+If you are installing this gem through an AI coding agent, use:
 
-### Installation Goal
+- [AGENTS.md](AGENTS.md) for general agent instructions
+- [CLAUDE.md](CLAUDE.md) for Claude-specific workflow notes
 
-Improve password UX and reduce signup friction:
-
-- the meter must remain visible even with password manager overlays
-- the toggle must be obvious and accessible
-- the host app should keep its own backend validation until it is intentionally migrated
-
-### Rollout Procedure
-
-1. Add the gem to `Gemfile` and run:
-
-```bash
-bundle install
-bin/rails generate stimulus_password_strength:install
-```
-
-2. Use the generated `PasswordPolicy` as the shared source of truth for backend rules and UI rules.
-3. Replace the main password field with `password_strength_field`, passing `requirements: PasswordPolicy.requirements`.
-4. Update every user-facing password view. Minimum:
-   - signup / registration
-   - password reset / change password
-5. If the app has additional password-setting flows, update them too:
-   - invitation acceptance
-   - onboarding set password
-   - admin-created account activation
-   - forced password change
-6. Do not remove `password_confirmation` if the host app still requires it.
-7. Do not change backend password validation during the first rollout unless it is already wired to `PasswordPolicy`.
-8. Roll out the UI first, then decide separately whether to simplify the backend policy.
-
-### What the Agent Must Verify in the Host App
-
-1. Review the user model and auth controllers:
-   - does the app require `password_confirmation`
-   - does the app require regex rules such as uppercase/lowercase/digit
-   - are there custom validation messages
-2. Move at least one backend rule into `PasswordPolicy` before exposing `requirements` in the UI.
-3. Remove or update copy that promises rules different from what the backend actually enforces.
-4. If you use a custom header row above the input, keep a stable status width or right alignment so the layout does not jump.
-5. If the host app has its own design system, pass custom classes into the helper instead of forking the gem.
-
-### What the Agent Should Not Change Automatically
-
-1. Do not remove `password_confirmation` without reviewing validations, tests, and the reset flow.
-2. Do not change the password policy just because the meter says `good` or `strong`.
-3. Do not define `requirements` separately from `PasswordPolicy`, or the UI will drift from backend validation.
-4. Do not hardcode hints such as `Must contain uppercase...` unless the backend actually enforces that rule.
-5. Do not assume dynamically applied Tailwind classes from JS will work in every host app.
-
-### Minimal Smoke Test After Installation
-
-1. Signup: enter a weak password and check the meter, toggle, and backend error.
-2. Signup with 1Password/LastPass enabled: confirm the meter is still visible.
-3. Password reset: verify the same component in the second flow.
-4. Browser autofill: confirm the meter updates after typing or autofill.
-5. Mobile viewport: the toggle must not overlap the text or password manager icons.
-
-### When to Change Password Policy
-
-Change backend policy only as a separate product decision. This gem does not replace:
-
-- model validation
-- rate limiting
-- anti-abuse controls
-- password reset security
+These files cover rollout order, host-app validation checks, smoke tests, and what should not be changed automatically.
 
 ## Example Adaptation: `linked_flow`
 

@@ -9,3 +9,5 @@
 - explicit `PasswordPolicy` pattern for syncing backend rules with UI requirements
 - Ruby tests for helper rendering, generator behavior and dummy app smoke flow
 - lightweight JS tests for controller behavior
+- public README rewritten in English
+- agent-specific integration instructions moved to `AGENTS.md` and `CLAUDE.md`
