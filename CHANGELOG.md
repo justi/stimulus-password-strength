@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.3
+
+- clarified the public README around adaptive usage modes: UI-only integration vs conversion-focused signup simplification
+- expanded `AGENTS.md` and `CLAUDE.md` so coding agents screen the host app before integration and ask explicit questions about password confirmation, composition rules, extra signup fields, and HTML `required` support
+- documented the recommended simplification path: length-first password policy, one password field with show/hide, and email + password only when extra signup fields are not true product requirements
+
 ## 0.1.2
 
 - switched gem packaging to `git ls-files`
