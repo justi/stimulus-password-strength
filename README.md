@@ -2,6 +2,8 @@
 
 Importmap-friendly password strength field for Rails 8+ with Stimulus, `zxcvbn`, and Tailwind-friendly markup.
 
+Use it either as a drop-in password UX upgrade or as part of a broader signup simplification rollout. The same gem can support a conservative integration that only adds the strength meter and toggle, or a conversion-focused integration that helps remove unnecessary auth friction such as password confirmation, composition rules, or extra signup fields.
+
 ## Product Goal
 
 Reduce signup abandonment by improving password UX:
@@ -11,6 +13,11 @@ Reduce signup abandonment by improving password UX:
 - requirements placed above the input so they stay visible with 1Password/LastPass overlays
 - no Node.js required in the host app
 - simpler signup flow while keeping security standards and sound UX practices
+
+This gem is intentionally adaptive. Depending on the host app and the user's product goal, it can be used in two valid modes:
+
+- UI integration only: add the password strength meter, requirements, and show/hide toggle while keeping the existing auth policy
+- conversion-focused simplification: use the gem rollout to simplify the signup flow, reduce unnecessary password friction, and improve registration completion
 
 ## What the Gem Includes
 
@@ -178,7 +185,7 @@ If you are installing this gem through an AI coding agent, use:
 - [AGENTS.md](AGENTS.md) for general agent instructions
 - [CLAUDE.md](CLAUDE.md) for Claude-specific workflow notes
 
-These files cover rollout order, host-app validation checks, smoke tests, and what should not be changed automatically.
+These files contain agent-specific project screening, rollout, and simplification guidance. They tell the agent how to inspect the host app, which questions to ask before changing auth UX, and how to choose between compatibility mode and conversion-focused simplification. Keep that logic there, not in this README.
 
 ## Example Adaptation: `linked_flow`
 
@@ -187,20 +194,6 @@ The gem was also used in `../linked_flow` as an example of a more opinionated UX
 - signup and password reset work without `password_confirmation`
 - the UI uses `password_strength_field`
 - backend validation and UI both use a shared `PasswordPolicy` with minimum password length
-
-Recommended rollout order:
-
-1. Add the gem as UI-only.
-2. Switch signup and reset views to `password_strength_field`.
-3. Only then decide whether to simplify backend policy and business tests.
-
-## Nice Follow-Ups After `0.1.0`
-
-1. Generator for JS test scaffolding in the host app.
-2. Wider CI coverage for Rails `8.0` and `8.1`.
-3. `confirmation: true/false` helper option.
-4. Public analytics event documentation for signup funnel instrumentation.
-5. More examples for integrating with host app design systems.
 
 ## Development
 
@@ -211,8 +204,3 @@ npm install
 bundle exec rake test
 npm test
 ```
-
-## Release Hygiene
-
-- full publication checklist: [PUBLISH_CHECKLIST.md](PUBLISH_CHECKLIST.md)
-- change history: [CHANGELOG.md](CHANGELOG.md)
