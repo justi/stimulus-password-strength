@@ -1,0 +1,8 @@
+en:
+  stimulus_password_strength:
+    show: "Show"
+    hide: "Hide"
+    weak: "Weak"
+    fair: "Fair"
+    good: "Good"
+    strong: "Strong"

@@ -1,0 +1,11 @@
+/.bundle/
+/.yardoc
+/_yardoc/
+/coverage/
+/doc/
+/node_modules/
+/pkg/
+/spec/reports/
+/tmp/
+/test/tmp/
+/*.gem

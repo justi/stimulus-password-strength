@@ -1,0 +1,13 @@
+{
+  "name": "stimulus-password-strength-dev",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test test/javascript/**/*.test.js"
+  },
+  "devDependencies": {
+    "@hotwired/stimulus": "^3.2.2",
+    "jsdom": "^26.1.0",
+    "zxcvbn": "^4.4.2"
+  }
+}

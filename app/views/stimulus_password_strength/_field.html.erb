@@ -1,0 +1,114 @@
+<div class="<%= container_class %>"
+     data-controller="password-strength"
+     data-password-strength-weak-label="<%= labels[:weak] %>"
+     data-password-strength-fair-label="<%= labels[:fair] %>"
+     data-password-strength-good-label="<%= labels[:good] %>"
+     data-password-strength-strong-label="<%= labels[:strong] %>"
+     data-password-strength-bar-base-class="<%= bar_base_class %>"
+     data-password-strength-text-base-class="<%= text_base_class %>"
+     data-password-strength-weak-bar-color="<%= bar_colors[:weak] %>"
+     data-password-strength-fair-bar-color="<%= bar_colors[:fair] %>"
+     data-password-strength-good-bar-color="<%= bar_colors[:good] %>"
+     data-password-strength-strong-bar-color="<%= bar_colors[:strong] %>"
+     data-password-strength-weak-text-color="<%= text_colors[:weak] %>"
+     data-password-strength-fair-text-color="<%= text_colors[:fair] %>"
+     data-password-strength-good-text-color="<%= text_colors[:good] %>"
+     data-password-strength-strong-text-color="<%= text_colors[:strong] %>">
+  <% if label.present? %>
+    <div class="<%= label_row_class %>">
+      <%= form.label attribute, label, class: label_class %>
+
+      <div class="<%= header_aux_class %>">
+        <% if requirements.any? %>
+          <div class="<%= requirements_class %>" style="<%= requirements_style %>">
+            <% requirements.each do |requirement| %>
+              <p data-password-strength-target="requirement"
+                 data-rule="<%= requirement[:rule] %>"
+                 data-value="<%= requirement[:value] %>"
+                 data-label="<%= requirement[:label] %>"
+                 data-remaining-singular="<%= requirement[:remaining_singular] %>"
+                 data-remaining-plural="<%= requirement[:remaining_plural] %>"
+                 data-met-label="<%= requirement[:met_label] %>"
+                 data-pending-style="<%= requirement_pending_style %>"
+                 data-met-style="<%= requirement_met_style %>"
+                 data-unmet-style="<%= requirement_unmet_style %>"
+                 class="<%= requirement_class %>"
+                 style="<%= requirement_pending_style %>"><%= requirement[:label] %></p>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div data-password-strength-target="statusRow" class="<%= status_row_class %>" style="<%= status_row_style %>; visibility: hidden;">
+      <div data-password-strength-target="strengthTrack" class="<%= bar_track_class %>" style="visibility: hidden;">
+        <div data-password-strength-target="strengthBar" class="<%= bar_base_class %>" style="width: 0%"></div>
+      </div>
+
+      <p data-password-strength-target="strengthText" class="<%= text_base_class %>" style="<%= text_style %>" aria-live="polite"></p>
+    </div>
+  <% else %>
+    <% if requirements.any? %>
+      <div class="<%= requirements_class %>" style="<%= requirements_style %>">
+        <% requirements.each do |requirement| %>
+          <p data-password-strength-target="requirement"
+             data-rule="<%= requirement[:rule] %>"
+             data-value="<%= requirement[:value] %>"
+             data-label="<%= requirement[:label] %>"
+             data-remaining-singular="<%= requirement[:remaining_singular] %>"
+             data-remaining-plural="<%= requirement[:remaining_plural] %>"
+             data-met-label="<%= requirement[:met_label] %>"
+             data-pending-style="<%= requirement_pending_style %>"
+             data-met-style="<%= requirement_met_style %>"
+             data-unmet-style="<%= requirement_unmet_style %>"
+             class="<%= requirement_class %>"
+             style="<%= requirement_pending_style %>"><%= requirement[:label] %></p>
+        <% end %>
+      </div>
+    <% end %>
+
+    <div data-password-strength-target="statusRow" class="<%= status_row_class %>" style="<%= status_row_style %>; visibility: hidden;">
+      <div data-password-strength-target="strengthTrack" class="<%= bar_track_class %>" style="visibility: hidden;">
+        <div data-password-strength-target="strengthBar" class="<%= bar_base_class %>" style="width: 0%"></div>
+      </div>
+
+      <p data-password-strength-target="strengthText" class="<%= text_base_class %>" style="<%= text_style %>" aria-live="polite"></p>
+    </div>
+  <% end %>
+
+  <div class="relative">
+    <%= form.password_field attribute,
+                            required: required,
+                            autocomplete: autocomplete,
+                            placeholder: placeholder,
+                            class: input_class,
+                            data: {
+                              password_strength_target: "input",
+                              action: "input->password-strength#evaluate"
+                            } %>
+
+    <button type="button"
+            data-password-strength-target="toggle"
+            aria-label="<%= toggle_labels[:show] %>"
+            title="<%= toggle_labels[:show] %>"
+            data-show-label="<%= toggle_labels[:show] %>"
+            data-hide-label="<%= toggle_labels[:hide] %>"
+            data-action="click->password-strength#toggle"
+            class="<%= toggle_class %>">
+      <svg data-password-strength-target="showIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width: 1rem; height: 1rem;" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.27 2.943 9.542 7-1.273 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7Z" />
+        <circle cx="12" cy="12" r="3" />
+      </svg>
+      <svg data-password-strength-target="hideIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width: 1rem; height: 1rem;" aria-hidden="true" hidden>
+        <path stroke-linecap="round" stroke-linejoin="round" d="M3 3l18 18" />
+        <path stroke-linecap="round" stroke-linejoin="round" d="M10.584 10.587A2 2 0 0 0 13.414 13.4" />
+        <path stroke-linecap="round" stroke-linejoin="round" d="M9.364 5.365A10.45 10.45 0 0 1 12 5c4.478 0 8.27 2.943 9.542 7a10.46 10.46 0 0 1-4.132 5.411" />
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6.657 6.658C4.798 7.936 3.423 9.79 2.458 12c1.273 4.057 5.064 7 9.542 7 1.536 0 2.992-.346 4.293-.965" />
+      </svg>
+    </button>
+  </div>
+
+  <% if hint.present? %>
+    <p class="<%= hint_class %>"><%= hint %></p>
+  <% end %>
+</div>

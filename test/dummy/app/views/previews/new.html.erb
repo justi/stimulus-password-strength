@@ -1,0 +1,5 @@
+<%= form_with scope: :user, url: "/preview", local: true do |form| %>
+  <%= password_strength_field form, :password,
+      label: "Password",
+      requirements: PasswordPolicy.requirements %>
+<% end %>
