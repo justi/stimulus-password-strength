@@ -1,0 +1,32 @@
+<style>
+  .relative,
+  .absolute,
+  .flex,
+  .items-end,
+  .items-center,
+  .justify-between,
+  .justify-start,
+  .justify-end,
+  .right-3,
+  .top-1\/2,
+  .-translate-y-1\/2 {
+    position: static !important;
+    right: auto !important;
+    top: auto !important;
+    transform: none !important;
+    display: block !important;
+  }
+
+  button {
+    background: hotpink;
+    border: 3px solid red;
+    padding: 12px;
+    line-height: 2;
+  }
+</style>
+
+<%= form_with scope: :user, url: "/preview", local: true do |form| %>
+  <%= password_strength_field form, :password,
+      label: "Password",
+      requirements: PasswordPolicy.requirements %>
+<% end %>

@@ -21,13 +21,16 @@ class PasswordStrengthFieldRenderTest < ActionView::TestCase
     assert_includes rendered, 'data-value="12"'
     assert_includes rendered, 'Type %{count} more characters'
     assert_includes rendered, 'aria-label="Show"'
+    assert_includes rendered, 'style="display: flex; justify-content: space-between; align-items: flex-end; gap: 0.75rem;"'
     assert_includes rendered, 'data-base-style="font-size: 0.75rem; line-height: 1rem; text-align: right;"'
     assert_includes rendered, 'style="display: flex; justify-content: flex-end; align-items: center;"'
-    assert_includes rendered, 'style="position: absolute; right: 0.75rem; top: 50%; transform: translateY(-50%); display: inline-flex; align-items: center; justify-content: center;"'
+    assert_includes rendered, 'style="position: relative;"'
+    assert_includes rendered, 'style="position: absolute; right: 0.75rem; top: 50%; transform: translateY(-50%); display: inline-flex; align-items: center; justify-content: center; padding: 0; border: 0; background: transparent; line-height: 0; z-index: 1;"'
     assert_includes rendered, 'class="flex min-h-5 flex-row-reverse items-center justify-start gap-2"'
     assert_includes rendered, 'style="display: flex; flex-direction: row-reverse; align-items: center; justify-content: flex-start; gap: 0.5rem; min-height: 1rem;; visibility: hidden;"'
     assert_includes rendered, 'style="height: 0.375rem; width: 5rem; overflow: hidden; border-radius: 9999px; background-color: #e5e7eb; visibility: hidden; flex-shrink: 0;"'
     assert_includes rendered, 'style="display: block; height: 100%; border-radius: 9999px; visibility: hidden; transition: width 300ms ease, background-color 300ms ease;; width: 0%"'
+    assert_includes rendered, 'style="display: inline-block; width: 5.5rem; text-align: right; white-space: nowrap;"'
   end
 
   def test_uses_i18n_labels_by_default

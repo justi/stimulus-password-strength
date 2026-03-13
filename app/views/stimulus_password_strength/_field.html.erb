@@ -15,7 +15,7 @@
      data-password-strength-good-text-color="<%= text_colors[:good] %>"
      data-password-strength-strong-text-color="<%= text_colors[:strong] %>">
   <% if label.present? %>
-    <div class="<%= label_row_class %>">
+    <div class="<%= label_row_class %>" style="<%= label_row_style %>">
       <%= form.label attribute, label, class: label_class %>
 
       <div class="<%= header_aux_class %>" style="<%= header_aux_style %>">
@@ -78,7 +78,7 @@
     </div>
   <% end %>
 
-  <div class="relative">
+  <div class="relative" style="<%= wrapper_style %>">
     <%= form.password_field attribute,
                             required: required,
                             autocomplete: autocomplete,

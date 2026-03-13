@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.8
+
+- moved the field wrapper and label row layout into inline style defaults so critical flex/position behavior no longer depends on host-app utility classes
+- strengthened the toggle inline style with button-reset mechanics and a stable hit area contract
+- changed the default strength-label style to a fixed width to prevent layout shift across locales
+- added dummy-app hostile-style coverage plus isolated render assertions for the new layout contracts
+
 ## 0.1.7
 
 - moved password toggle positioning into inline style defaults so the show/hide icon stays inside the input even when host-app Tailwind utilities are incomplete

@@ -14,6 +14,7 @@ module StimulusPasswordStrength
       input_class = options.delete(:input_class) || config.input_class
       container_class = options.delete(:container_class) || config.container_class
       label_row_class = options.delete(:label_row_class) || config.label_row_class
+      label_row_style = options.delete(:label_row_style) || config.label_row_style
       label_class = options.delete(:label_class) || config.label_class
       header_aux_class = options.delete(:header_aux_class) || config.header_aux_class
       header_aux_style = options.delete(:header_aux_style) || config.header_aux_style
@@ -23,6 +24,7 @@ module StimulusPasswordStrength
       requirements_style = options.delete(:requirements_style) || config.requirements_style
       requirement_class = options.delete(:requirement_class) || config.requirement_class
       requirement_style = options.delete(:requirement_style) || config.requirement_style
+      wrapper_style = options.delete(:wrapper_style) || config.wrapper_style
       toggle_class = options.delete(:toggle_class) || config.toggle_class
       toggle_style = options.delete(:toggle_style) || config.toggle_style
       bar_track_class = options.delete(:bar_track_class) || config.bar_track_class
@@ -49,6 +51,7 @@ module StimulusPasswordStrength
         input_class: input_class,
         container_class: container_class,
         label_row_class: label_row_class,
+        label_row_style: label_row_style,
         label_class: label_class,
         header_aux_class: header_aux_class,
         header_aux_style: header_aux_style,
@@ -58,6 +61,7 @@ module StimulusPasswordStrength
         requirements_style: requirements_style,
         requirement_class: requirement_class,
         requirement_style: requirement_style,
+        wrapper_style: wrapper_style,
         toggle_class: toggle_class,
         toggle_style: toggle_style,
         bar_track_class: bar_track_class,

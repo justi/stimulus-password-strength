@@ -3,6 +3,8 @@
 class PreviewsController < ApplicationController
   def new; end
 
+  def hostile; end
+
   def create
     head :ok
   end

@@ -114,6 +114,7 @@ The gem does not try to infer rules from the model and does not add hidden fallb
 ```ruby
 StimulusPasswordStrength.configure do |config|
   config.input_class = "w-full rounded-md border px-3 py-2 pr-16"
+  config.wrapper_style = "position: relative;"
   config.toggle_style = "position: absolute; right: 0.75rem; top: 50%; transform: translateY(-50%);"
   config.text_style = "width: 5.5rem; text-align: right; white-space: nowrap;"
   config.status_row_class = "flex min-h-5 flex-row-reverse items-center justify-start gap-2"
@@ -132,6 +133,17 @@ end
 ```
 
 Adding more languages is standard Rails I18n: add another locale file in [config/locales](/Users/justi/projects_prod/stimulus-password-strength/config/locales).
+
+## Layout Contract
+
+The gem now treats critical layout as component mechanics, not host-app theme:
+
+- the password-field wrapper must stay positioned
+- the show/hide toggle must stay inside the input
+- the label/requirements row must remain a flex row
+- the strength label uses a fixed width by default
+
+If you override these settings, preserve the same mechanics and keep right-side padding on the input (`pr-16` or equivalent) so typed text does not collide with the toggle.
 
 ## Post-Install Checklist
 
