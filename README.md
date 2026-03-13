@@ -114,8 +114,9 @@ The gem does not try to infer rules from the model and does not add hidden fallb
 ```ruby
 StimulusPasswordStrength.configure do |config|
   config.input_class = "w-full rounded-md border px-3 py-2 pr-16"
-  config.text_style = "min-width: 2.5rem; text-align: right; white-space: nowrap;"
-  config.status_row_class = "flex min-h-5 items-center gap-2"
+  config.toggle_style = "position: absolute; right: 0.75rem; top: 50%; transform: translateY(-50%);"
+  config.text_style = "width: 5.5rem; text-align: right; white-space: nowrap;"
+  config.status_row_class = "flex min-h-5 flex-row-reverse items-center justify-start gap-2"
   config.requirements_style = "min-height: 1rem;"
   config.requirement_pending_style = "color: #6b7280;"
   config.requirement_met_style = "color: #047857;"
@@ -186,14 +187,6 @@ If you are installing this gem through an AI coding agent, use:
 - [CLAUDE.md](CLAUDE.md) for Claude-specific workflow notes
 
 These files contain agent-specific project screening, rollout, and simplification guidance. They tell the agent how to inspect the host app, which questions to ask before changing auth UX, and how to choose between compatibility mode and conversion-focused simplification. Keep that logic there, not in this README.
-
-## Example Adaptation: `linked_flow`
-
-The gem was also used in `../linked_flow` as an example of a more opinionated UX simplification:
-
-- signup and password reset work without `password_confirmation`
-- the UI uses `password_strength_field`
-- backend validation and UI both use a shared `PasswordPolicy` with minimum password length
 
 ## Development
 

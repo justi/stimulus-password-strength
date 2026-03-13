@@ -24,6 +24,7 @@ module StimulusPasswordStrength
       requirement_class = options.delete(:requirement_class) || config.requirement_class
       requirement_style = options.delete(:requirement_style) || config.requirement_style
       toggle_class = options.delete(:toggle_class) || config.toggle_class
+      toggle_style = options.delete(:toggle_style) || config.toggle_style
       bar_track_class = options.delete(:bar_track_class) || config.bar_track_class
       bar_track_style = options.delete(:bar_track_style) || config.bar_track_style
       bar_base_class = options.delete(:bar_base_class) || config.bar_base_class
@@ -58,6 +59,7 @@ module StimulusPasswordStrength
         requirement_class: requirement_class,
         requirement_style: requirement_style,
         toggle_class: toggle_class,
+        toggle_style: toggle_style,
         bar_track_class: bar_track_class,
         bar_track_style: bar_track_style,
         bar_base_class: bar_base_class,

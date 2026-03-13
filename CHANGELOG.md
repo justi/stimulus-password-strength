@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.7
+
+- moved password toggle positioning into inline style defaults so the show/hide icon stays inside the input even when host-app Tailwind utilities are incomplete
+- removed the `linked_flow` adaptation section from the public README
+
 ## 0.1.6
 
 - darkened the default password strength track so the bar rail stays visible against light host-app backgrounds
