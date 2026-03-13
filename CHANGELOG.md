@@ -3,7 +3,9 @@
 ## 0.1.9
 
 - removed positional Tailwind utilities from the default `toggle_class` so the show/hide icon no longer gets a second vertical translation on host apps that also use the inline `toggle_style`
+- removed default layout utility classes from the label row, status row, requirements row, and strength bar wrappers so layout mechanics now live in `*_style` only
 - documented that `toggle_class` should stay visual only and must not reintroduce `absolute`, `right-*`, `top-1/2`, or `-translate-y-1/2`
+- documented that other row and bar `*_class` settings should also stay visual-only
 - refreshed the installer template to reflect the new toggle customization contract
 
 ## 0.1.8
