@@ -21,7 +21,7 @@ class StimulusPasswordStrengthTest < Minitest::Test
     assert_equal "#22c55e", config.bar_colors[:good]
     assert_equal "font-size: 0.75rem; line-height: 1rem; text-align: right;", config.requirement_style
     assert_equal "display: block; min-width: 2.5rem; text-align: right; white-space: nowrap;", config.text_style
-    assert_equal "display: flex; align-items: center; gap: 0.5rem; min-height: 1rem;", config.status_row_style
+    assert_equal "display: flex; flex-direction: row-reverse; align-items: center; justify-content: flex-start; gap: 0.5rem; min-height: 1rem;", config.status_row_style
     assert_equal "display: flex; justify-content: flex-end; align-items: center; gap: 0.5rem; min-height: 1rem;", config.requirements_style
     assert_equal "height: 0.375rem; width: 5rem; overflow: hidden; border-radius: 9999px; background-color: #f3f4f6; visibility: hidden; flex-shrink: 0;", config.bar_track_style
     assert_equal "display: block; height: 100%; border-radius: 9999px; visibility: hidden; transition: width 300ms ease, background-color 300ms ease;", config.bar_style

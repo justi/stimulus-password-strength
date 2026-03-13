@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.5
+
+- swapped the default order of the password strength label and bar so the label stays right-aligned in the status rail
+- updated the default status-row layout to use the new order without requiring host-app overrides
+- expanded rendering tests to cover the new default status-row class and style contract
+
 ## 0.1.4
 
 - fixed a rendering bug where the password strength bar could stay visually hidden even though the label updated

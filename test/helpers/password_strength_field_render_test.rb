@@ -23,6 +23,8 @@ class PasswordStrengthFieldRenderTest < ActionView::TestCase
     assert_includes rendered, 'aria-label="Show"'
     assert_includes rendered, 'data-base-style="font-size: 0.75rem; line-height: 1rem; text-align: right;"'
     assert_includes rendered, 'style="display: flex; justify-content: flex-end; align-items: center;"'
+    assert_includes rendered, 'class="flex min-h-5 flex-row-reverse items-center justify-start gap-2"'
+    assert_includes rendered, 'style="display: flex; flex-direction: row-reverse; align-items: center; justify-content: flex-start; gap: 0.5rem; min-height: 1rem;; visibility: hidden;"'
     assert_includes rendered, 'style="height: 0.375rem; width: 5rem; overflow: hidden; border-radius: 9999px; background-color: #f3f4f6; visibility: hidden; flex-shrink: 0;"'
     assert_includes rendered, 'style="display: block; height: 100%; border-radius: 9999px; visibility: hidden; transition: width 300ms ease, background-color 300ms ease;; width: 0%"'
   end
