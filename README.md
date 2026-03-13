@@ -116,6 +116,7 @@ StimulusPasswordStrength.configure do |config|
   config.input_class = "w-full rounded-md border px-3 py-2 pr-16"
   config.wrapper_style = "position: relative;"
   config.toggle_style = "position: absolute; right: 0.75rem; top: 50%; transform: translateY(-50%);"
+  config.toggle_class = "cursor-pointer text-xs font-medium text-gray-500 hover:text-gray-700"
   config.text_style = "width: 5.5rem; text-align: right; white-space: nowrap;"
   config.status_row_class = "flex min-h-5 flex-row-reverse items-center justify-start gap-2"
   config.requirements_style = "min-height: 1rem;"
@@ -144,6 +145,8 @@ The gem now treats critical layout as component mechanics, not host-app theme:
 - the strength label uses a fixed width by default
 
 If you override these settings, preserve the same mechanics and keep right-side padding on the input (`pr-16` or equivalent) so typed text does not collide with the toggle.
+
+Do not put positional utility classes such as `absolute`, `right-*`, `top-1/2`, or `-translate-y-1/2` into `toggle_class`. Positioning is already owned by `toggle_style`; duplicating it can shift the icon upward.
 
 ## Post-Install Checklist
 

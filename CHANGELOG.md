@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.9
+
+- removed positional Tailwind utilities from the default `toggle_class` so the show/hide icon no longer gets a second vertical translation on host apps that also use the inline `toggle_style`
+- documented that `toggle_class` should stay visual only and must not reintroduce `absolute`, `right-*`, `top-1/2`, or `-translate-y-1/2`
+- refreshed the installer template to reflect the new toggle customization contract
+
 ## 0.1.8
 
 - moved the field wrapper and label row layout into inline style defaults so critical flex/position behavior no longer depends on host-app utility classes
