@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.4
+
+- fixed a rendering bug where the password strength bar could stay visually hidden even though the label updated
+- moved critical strength-bar and requirement layout fallbacks into inline styles so host-app Tailwind overrides cannot collapse the bar height or visibility
+- preserved requirement base typography when pending/met/unmet states are updated in Stimulus
+- expanded test coverage for the new style fallback properties and visible-bar behavior
+
 ## 0.1.3
 
 - clarified the public README around adaptive usage modes: UI-only integration vs conversion-focused signup simplification
