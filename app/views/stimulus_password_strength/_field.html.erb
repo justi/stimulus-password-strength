@@ -18,7 +18,7 @@
     <div class="<%= label_row_class %>">
       <%= form.label attribute, label, class: label_class %>
 
-      <div class="<%= header_aux_class %>">
+      <div class="<%= header_aux_class %>" style="<%= header_aux_style %>">
         <% if requirements.any? %>
           <div class="<%= requirements_class %>" style="<%= requirements_style %>">
             <% requirements.each do |requirement| %>
@@ -32,8 +32,9 @@
                  data-pending-style="<%= requirement_pending_style %>"
                  data-met-style="<%= requirement_met_style %>"
                  data-unmet-style="<%= requirement_unmet_style %>"
+                 data-base-style="<%= requirement_style %>"
                  class="<%= requirement_class %>"
-                 style="<%= requirement_pending_style %>"><%= requirement[:label] %></p>
+                 style="<%= requirement_style %>; <%= requirement_pending_style %>"><%= requirement[:label] %></p>
             <% end %>
           </div>
         <% end %>
@@ -41,8 +42,8 @@
     </div>
 
     <div data-password-strength-target="statusRow" class="<%= status_row_class %>" style="<%= status_row_style %>; visibility: hidden;">
-      <div data-password-strength-target="strengthTrack" class="<%= bar_track_class %>" style="visibility: hidden;">
-        <div data-password-strength-target="strengthBar" class="<%= bar_base_class %>" style="width: 0%"></div>
+      <div data-password-strength-target="strengthTrack" class="<%= bar_track_class %>" style="<%= bar_track_style %>">
+        <div data-password-strength-target="strengthBar" class="<%= bar_base_class %>" style="<%= bar_style %>; width: 0%"></div>
       </div>
 
       <p data-password-strength-target="strengthText" class="<%= text_base_class %>" style="<%= text_style %>" aria-live="polite"></p>
@@ -61,15 +62,16 @@
              data-pending-style="<%= requirement_pending_style %>"
              data-met-style="<%= requirement_met_style %>"
              data-unmet-style="<%= requirement_unmet_style %>"
+             data-base-style="<%= requirement_style %>"
              class="<%= requirement_class %>"
-             style="<%= requirement_pending_style %>"><%= requirement[:label] %></p>
+             style="<%= requirement_style %>; <%= requirement_pending_style %>"><%= requirement[:label] %></p>
         <% end %>
       </div>
     <% end %>
 
     <div data-password-strength-target="statusRow" class="<%= status_row_class %>" style="<%= status_row_style %>; visibility: hidden;">
-      <div data-password-strength-target="strengthTrack" class="<%= bar_track_class %>" style="visibility: hidden;">
-        <div data-password-strength-target="strengthBar" class="<%= bar_base_class %>" style="width: 0%"></div>
+      <div data-password-strength-target="strengthTrack" class="<%= bar_track_class %>" style="<%= bar_track_style %>">
+        <div data-password-strength-target="strengthBar" class="<%= bar_base_class %>" style="<%= bar_style %>; width: 0%"></div>
       </div>
 
       <p data-password-strength-target="strengthText" class="<%= text_base_class %>" style="<%= text_style %>" aria-live="polite"></p>

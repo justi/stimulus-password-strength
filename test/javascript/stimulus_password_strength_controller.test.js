@@ -118,6 +118,7 @@ test("toggles password visibility and accessible labels", async () => {
 test("updates requirement copy while the password is being typed", async () => {
   const { element, input, cleanup } = setupDom(fixture())
   const requirement = element.querySelector('[data-password-strength-target="requirement"]')
+  const strengthBar = element.querySelector('[data-password-strength-target="strengthBar"]')
 
   await new Promise((resolve) => setTimeout(resolve, 0))
 
@@ -125,6 +126,7 @@ test("updates requirement copy while the password is being typed", async () => {
   input.dispatchEvent(new window.Event("input", { bubbles: true }))
   await new Promise((resolve) => setTimeout(resolve, 0))
   assert.equal(requirement.textContent, "Type 1 more character")
+  assert.equal(strengthBar.style.visibility, "visible")
 
   input.value = "abcdefghijkl"
   input.dispatchEvent(new window.Event("input", { bubbles: true }))

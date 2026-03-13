@@ -31,6 +31,7 @@ export default class extends Controller {
     if (password.length === 0) {
       this.statusRowTarget.style.visibility = "hidden"
       this.strengthTrackTarget.style.visibility = "hidden"
+      this.strengthBarTarget.style.visibility = "hidden"
       this.strengthBarTarget.style.width = "0%"
       this.strengthBarTarget.style.backgroundColor = ""
       this.strengthTextTarget.textContent = ""
@@ -41,6 +42,7 @@ export default class extends Controller {
 
     this.statusRowTarget.style.visibility = "visible"
     this.strengthTrackTarget.style.visibility = "visible"
+    this.strengthBarTarget.style.visibility = "visible"
     const score = this.scoreFor(password)
     const widths = [10, 25, 50, 75, 100]
     const labels = ["weak", "weak", "fair", "good", "strong"]
@@ -131,7 +133,7 @@ export default class extends Controller {
       if (password.length === 0) {
         element.setAttribute("aria-hidden", "false")
         element.innerHTML = this.escapeHtml(element.dataset.label)
-        element.style.cssText = `${element.dataset.pendingStyle}; visibility: visible;`
+        element.style.cssText = `${element.dataset.baseStyle}; ${element.dataset.pendingStyle}; visibility: visible;`
         return
       }
 
@@ -140,8 +142,8 @@ export default class extends Controller {
         ? this.metRequirementMarkup(element)
         : this.escapeHtml(this.requirementLabel(element, password))
       element.style.cssText = isMet
-        ? `${element.dataset.metStyle}; visibility: visible;`
-        : `${element.dataset.unmetStyle}; visibility: visible;`
+        ? `${element.dataset.baseStyle}; ${element.dataset.metStyle}; visibility: visible;`
+        : `${element.dataset.baseStyle}; ${element.dataset.unmetStyle}; visibility: visible;`
     })
   }
 

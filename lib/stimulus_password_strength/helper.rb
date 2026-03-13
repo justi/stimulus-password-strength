@@ -16,14 +16,18 @@ module StimulusPasswordStrength
       label_row_class = options.delete(:label_row_class) || config.label_row_class
       label_class = options.delete(:label_class) || config.label_class
       header_aux_class = options.delete(:header_aux_class) || config.header_aux_class
+      header_aux_style = options.delete(:header_aux_style) || config.header_aux_style
       status_row_class = options.delete(:status_row_class) || config.status_row_class
       status_row_style = options.delete(:status_row_style) || config.status_row_style
       requirements_class = options.delete(:requirements_class) || config.requirements_class
       requirements_style = options.delete(:requirements_style) || config.requirements_style
       requirement_class = options.delete(:requirement_class) || config.requirement_class
+      requirement_style = options.delete(:requirement_style) || config.requirement_style
       toggle_class = options.delete(:toggle_class) || config.toggle_class
       bar_track_class = options.delete(:bar_track_class) || config.bar_track_class
+      bar_track_style = options.delete(:bar_track_style) || config.bar_track_style
       bar_base_class = options.delete(:bar_base_class) || config.bar_base_class
+      bar_style = options.delete(:bar_style) || config.bar_style
       text_base_class = options.delete(:text_base_class) || config.text_base_class
       text_style = options.delete(:text_style) || config.text_style
       hint_class = options.delete(:hint_class) || config.hint_class
@@ -46,14 +50,18 @@ module StimulusPasswordStrength
         label_row_class: label_row_class,
         label_class: label_class,
         header_aux_class: header_aux_class,
+        header_aux_style: header_aux_style,
         status_row_class: status_row_class,
         status_row_style: status_row_style,
         requirements_class: requirements_class,
         requirements_style: requirements_style,
         requirement_class: requirement_class,
+        requirement_style: requirement_style,
         toggle_class: toggle_class,
         bar_track_class: bar_track_class,
+        bar_track_style: bar_track_style,
         bar_base_class: bar_base_class,
+        bar_style: bar_style,
         text_base_class: text_base_class,
         text_style: text_style,
         hint_class: hint_class,
