@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.6
+
+- darkened the default password strength track so the bar rail stays visible against light host-app backgrounds
+
 ## 0.1.5
 
 - swapped the default order of the password strength label and bar so the label stays right-aligned in the status rail

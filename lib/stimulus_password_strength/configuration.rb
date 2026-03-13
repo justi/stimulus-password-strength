@@ -43,7 +43,7 @@ module StimulusPasswordStrength
       @input_class = "w-full rounded-xl border border-gray-300 px-4 py-3 pr-16 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
       @toggle_class = "absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-xs font-medium text-gray-500 hover:text-gray-700"
       @bar_track_class = "h-1.5 w-20 overflow-hidden rounded-full bg-gray-100"
-      @bar_track_style = "height: 0.375rem; width: 5rem; overflow: hidden; border-radius: 9999px; background-color: #f3f4f6; visibility: hidden; flex-shrink: 0;"
+      @bar_track_style = "height: 0.375rem; width: 5rem; overflow: hidden; border-radius: 9999px; background-color: #e5e7eb; visibility: hidden; flex-shrink: 0;"
       @bar_base_class = "h-full rounded-full transition-all duration-300"
       @bar_style = "display: block; height: 100%; border-radius: 9999px; visibility: hidden; transition: width 300ms ease, background-color 300ms ease;"
       @text_base_class = "text-xs"
