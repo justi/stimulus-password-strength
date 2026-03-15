@@ -14,6 +14,14 @@
      data-password-strength-fair-text-color="<%= text_colors[:fair] %>"
      data-password-strength-good-text-color="<%= text_colors[:good] %>"
      data-password-strength-strong-text-color="<%= text_colors[:strong] %>">
+  <div data-password-strength-target="statusRow" class="<%= status_row_class %>" style="<%= status_row_style %>; visibility: hidden;">
+    <div data-password-strength-target="strengthTrack" class="<%= bar_track_class %>" style="<%= bar_track_style %>">
+      <div data-password-strength-target="strengthBar" class="<%= bar_base_class %>" style="<%= bar_style %>; width: 0%"></div>
+    </div>
+
+    <p data-password-strength-target="strengthText" class="<%= text_base_class %>" style="<%= text_style %>" aria-live="polite"></p>
+  </div>
+
   <% if label.present? %>
     <div class="<%= label_row_class %>" style="<%= label_row_style %>">
       <%= form.label attribute, label, class: label_class %>
@@ -40,14 +48,6 @@
         <% end %>
       </div>
     </div>
-
-    <div data-password-strength-target="statusRow" class="<%= status_row_class %>" style="<%= status_row_style %>; visibility: hidden;">
-      <div data-password-strength-target="strengthTrack" class="<%= bar_track_class %>" style="<%= bar_track_style %>">
-        <div data-password-strength-target="strengthBar" class="<%= bar_base_class %>" style="<%= bar_style %>; width: 0%"></div>
-      </div>
-
-      <p data-password-strength-target="strengthText" class="<%= text_base_class %>" style="<%= text_style %>" aria-live="polite"></p>
-    </div>
   <% else %>
     <% if requirements.any? %>
       <div class="<%= requirements_class %>" style="<%= requirements_style %>">
@@ -68,14 +68,6 @@
         <% end %>
       </div>
     <% end %>
-
-    <div data-password-strength-target="statusRow" class="<%= status_row_class %>" style="<%= status_row_style %>; visibility: hidden;">
-      <div data-password-strength-target="strengthTrack" class="<%= bar_track_class %>" style="<%= bar_track_style %>">
-        <div data-password-strength-target="strengthBar" class="<%= bar_base_class %>" style="<%= bar_style %>; width: 0%"></div>
-      </div>
-
-      <p data-password-strength-target="strengthText" class="<%= text_base_class %>" style="<%= text_style %>" aria-live="polite"></p>
-    </div>
   <% end %>
 
   <div style="<%= wrapper_style %>">
